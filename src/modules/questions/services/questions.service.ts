@@ -1,4 +1,4 @@
-import { Injectable, Post } from '@nestjs/common';
+import { HttpException, Injectable, Post } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateQuestionDto } from '../dtos/create-question-dto';
@@ -25,12 +25,14 @@ export class QuestionsService {
       .find()
       .skip(page * limit)
       .limit(limit);
+
     return questions;
   }
 
   async findById(_id: string): Promise<Question> {
     const question = await this.questionModel.findById(_id);
     if (!question) {
+      throw new HttpException('Question not found', 404);
     }
     return question;
   }
