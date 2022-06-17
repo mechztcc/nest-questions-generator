@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CreateQuestionDto } from '../dtos/create-question-dto';
 import { FindQuestionsByTagDto } from '../dtos/find-questions-by-tag-dto';
 import { QuestionsService } from '../services/questions.service';
@@ -23,7 +23,8 @@ export class QuestionsController {
   }
 
   @Post('/tags')
-  findByTags(@Body() payload: FindQuestionsByTagDto) {
-    return this.questionsService.findByTags(payload)
+  findByTags(@Body() payload: FindQuestionsByTagDto, @Query() query: any) {
+
+    return this.questionsService.findByTags(payload, Number(query.page));
   }
 }

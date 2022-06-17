@@ -24,14 +24,23 @@ export class QuestionsService {
   }
 
   async findById(_id: string): Promise<Question> {
-    const question = this.questionModel.findById(_id);
+    const question = await this.questionModel.findById(_id);
+    if (!question) {
+    }
     return question;
   }
 
-  async findByTags(payload: FindQuestionsByTagDto): Promise<Question[]> {
-    const questions = await this.questionModel.find({
-      tags: { $in: payload.tags },
-    });
+  async findByTags(
+    payload: FindQuestionsByTagDto,
+    page: number = 0,
+  ): Promise<Question[]> {
+    const limit = 10;
+    const questions = await this.questionModel
+      .find({
+        tags: { $in: payload.tags },
+      })
+      .skip(page * limit)
+      .limit(10);
 
     return questions;
   }
