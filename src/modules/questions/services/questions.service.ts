@@ -16,4 +16,9 @@ export class QuestionsService {
 
     return question.save();
   }
+
+  async index(): Promise<Question[]> {
+    const questions = this.questionModel.find().exec();
+    return questions;
+  }
 }
