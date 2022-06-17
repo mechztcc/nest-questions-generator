@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { QuestionsModule } from './modules/questions/questions.module';
@@ -9,16 +9,7 @@ import { UsersModule } from './modules/users/users.module';
   imports: [
     QuestionsModule,
     UsersModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'alberto123',
-      synchronize: true,
-      database: 'questions',
-      entities: [],
-    }),
+    MongooseModule.forRoot('mongodb+srv://mongodb:mongodb@cluster0.zxv0u.mongodb.net/?retryWrites=true&w=majority')
   ],
   controllers: [AppController],
   providers: [AppService],
