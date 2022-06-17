@@ -4,6 +4,9 @@ export class CreateQuestionDto {
   @IsString()
   description: string;
 
+  @IsArray()
+  tags: string[];
+
   @IsNumber()
   answer: number;
 

@@ -8,6 +8,9 @@ export class Question {
   description: string;
 
   @Prop()
+  tags: string[];
+
+  @Prop()
   answer: number;
 
   @Prop()
