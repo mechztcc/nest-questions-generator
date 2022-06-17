@@ -18,8 +18,13 @@ export class QuestionsService {
     return question.save();
   }
 
-  async index(): Promise<Question[]> {
-    const questions = this.questionModel.find().exec();
+  async index(page: number = 0): Promise<Question[]> {
+    const limit: number = 10;
+
+    const questions = this.questionModel
+      .find()
+      .skip(page * limit)
+      .limit(limit);
     return questions;
   }
 

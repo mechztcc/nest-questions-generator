@@ -13,8 +13,8 @@ export class QuestionsController {
   }
 
   @Get()
-  index() {
-    return this.questionsService.index();
+  index(@Query() query: any) {
+    return this.questionsService.index(query.page);
   }
 
   @Get('/:id')
