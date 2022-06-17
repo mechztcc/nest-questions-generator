@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Query,
+  Res
+} from '@nestjs/common';
 import { CreateQuestionDto } from '../dtos/create-question-dto';
 import { FindQuestionsByTagDto } from '../dtos/find-questions-by-tag-dto';
 import { QuestionsService } from '../services/questions.service';
@@ -24,7 +34,15 @@ export class QuestionsController {
 
   @Post('/tags')
   findByTags(@Body() payload: FindQuestionsByTagDto, @Query() query: any) {
-
     return this.questionsService.findByTags(payload, Number(query.page));
+  }
+
+  @Delete('/:id')
+  async delete(@Param('id') id: string, @Res() response) {
+    await this.questionsService.delete(id);
+
+    return response
+      .status(HttpStatus.ACCEPTED)
+      .json({ message: `Question with _id: ${id} has been deleted.` });
   }
 }

@@ -51,4 +51,13 @@ export class QuestionsService {
 
     return questions;
   }
+
+  async delete(_id: string): Promise<void> {
+    const question = await this.questionModel.findById(_id);
+    if (!question) {
+      throw new HttpException('Question not found', 404);
+    }
+
+    await question.delete()
+  }
 }
