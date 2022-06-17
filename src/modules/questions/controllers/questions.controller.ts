@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateQuestionDto } from '../dtos/create-question-dto';
 import { QuestionsService } from '../services/questions.service';
 
@@ -14,5 +14,10 @@ export class QuestionsController {
   @Get()
   index() {
     return this.questionsService.index();
+  }
+
+  @Get('/:id')
+  findById(@Param('id') id: string) {
+    return this.questionsService.findById(id);
   }
 }

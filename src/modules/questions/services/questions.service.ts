@@ -21,4 +21,9 @@ export class QuestionsService {
     const questions = this.questionModel.find().exec();
     return questions;
   }
+
+  async findById(_id: string): Promise<Question> {
+    const question = this.questionModel.findById(_id);
+    return question;
+  }
 }
