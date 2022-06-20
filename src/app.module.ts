@@ -9,7 +9,9 @@ import { UsersModule } from './modules/users/users.module';
   imports: [
     QuestionsModule,
     UsersModule,
-    MongooseModule.forRoot('mongodb+srv://mongodb:mongodb@cluster0.zxv0u.mongodb.net/?retryWrites=true&w=majority')
+    MongooseModule.forRoot(
+      'mongodb+srv://mongodb:mongodb@cluster0.zxv0u.mongodb.net/?retryWrites=true&w=majority',
+    ),
   ],
   controllers: [AppController],
   providers: [AppService],
