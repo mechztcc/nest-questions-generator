@@ -11,7 +11,7 @@ import { AuthModule } from './modules/auth/auth.module';
     QuestionsModule,
     UsersModule,
     MongooseModule.forRoot(
-      'mongodb+srv://mongodb:mongodb@cluster0.zxv0u.mongodb.net/?retryWrites=true&w=majority',
+      process.env.MONGO_URI,
     ),
     AuthModule,
   ],
