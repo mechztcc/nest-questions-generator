@@ -7,8 +7,10 @@ import {
   Param,
   Post,
   Query,
-  Res
+  Res,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateQuestionDto } from '../dtos/create-question-dto';
 import { FindQuestionsByTagDto } from '../dtos/find-questions-by-tag-dto';
 import { QuestionsService } from '../services/questions.service';
@@ -18,6 +20,7 @@ export class QuestionsController {
   constructor(private questionsService: QuestionsService) {}
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   create(@Body() payload: CreateQuestionDto) {
     return this.questionsService.create(payload);
   }
