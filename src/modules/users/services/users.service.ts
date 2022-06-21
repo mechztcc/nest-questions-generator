@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
@@ -15,6 +19,11 @@ export class UsersService {
   ) {}
 
   public async signup(signupDto: SignupDto): Promise<User> {
+    const emailExists = await this.findByEmail(signupDto.email);
+    if (emailExists) {
+      throw new BadRequestException('E-mail already in use');
+    }
+
     const user = new this.usersModel(signupDto);
     return user.save();
   }
