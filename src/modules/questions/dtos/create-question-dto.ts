@@ -12,4 +12,7 @@ export class CreateQuestionDto {
 
   @IsArray()
   alternatives: string[];
+
+  @IsString()
+  userId: string;
 }

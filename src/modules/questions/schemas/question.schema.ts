@@ -15,6 +15,9 @@ export class Question {
 
   @Prop()
   alternatives: string[];
+
+  @Prop()
+  userId: string;
 }
 
 export const QuestionSchema = SchemaFactory.createForClass(Question);
