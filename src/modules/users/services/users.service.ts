@@ -30,7 +30,12 @@ export class UsersService {
 
   public async signin(
     signinDto: SigninDto,
-  ): Promise<{ name: string; jwtToken: string; email: string }> {
+  ): Promise<{
+    name: string;
+    jwtToken: string;
+    email: string;
+    userId: string;
+  }> {
     const userExists = await this.findByEmail(signinDto.email);
 
     const match = await this.checkPassword(signinDto.password, userExists);
@@ -39,7 +44,12 @@ export class UsersService {
     }
 
     const token = await this.authService.createAccessToken(userExists._id);
-    return { name: userExists.name, jwtToken: token, email: userExists.email };
+    return {
+      name: userExists.name,
+      jwtToken: token,
+      email: userExists.email,
+      userId: userExists._id,
+    };
   }
 
   public async findAll(): Promise<User[]> {
