@@ -1,6 +1,7 @@
 import { HttpException, Injectable, Post } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UsersService } from 'src/modules/users/services/users.service';
 import { CreateQuestionDto } from '../dtos/create-question-dto';
 import { FindQuestionsByTagDto } from '../dtos/find-questions-by-tag-dto';
 import { Question, QuestionDocument } from '../schemas/question.schema';
@@ -9,6 +10,7 @@ import { Question, QuestionDocument } from '../schemas/question.schema';
 export class QuestionsService {
   constructor(
     @InjectModel(Question.name) private questionModel: Model<QuestionDocument>,
+    private readonly usersService: UsersService,
   ) {}
 
   @Post()
@@ -58,6 +60,13 @@ export class QuestionsService {
       throw new HttpException('Question not found', 404);
     }
 
-    await question.delete()
+    await question.delete();
+  }
+
+  async findByUserId(_id: string): Promise<Question[]> {
+    const userExists = await this.usersService.findById(_id);
+
+    const questions = await this.questionModel.find({ userId: _id });
+    return questions;
   }
 }

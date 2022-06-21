@@ -48,4 +48,9 @@ export class QuestionsController {
       .status(HttpStatus.ACCEPTED)
       .json({ message: `Question with _id: ${id} has been deleted.` });
   }
+
+  @Get('users/:id')
+  async findByUser(@Param('id') id: string) {
+    return await this.questionsService.findByUserId(id);
+  }
 }

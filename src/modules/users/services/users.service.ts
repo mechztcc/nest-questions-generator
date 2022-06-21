@@ -28,9 +28,7 @@ export class UsersService {
     return user.save();
   }
 
-  public async signin(
-    signinDto: SigninDto,
-  ): Promise<{
+  public async signin(signinDto: SigninDto): Promise<{
     name: string;
     jwtToken: string;
     email: string;
@@ -56,6 +54,15 @@ export class UsersService {
     const users = await this.usersModel.find();
 
     return users;
+  }
+
+  public async findById(_id: string): Promise<User> {
+    const user = await this.usersModel.findOne({ _id });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
   }
 
   private async findByEmail(email: string): Promise<User> {
