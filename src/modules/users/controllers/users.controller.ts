@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { SigninDto } from '../dtos/signin.dto';
 import { SignupDto } from '../dtos/signup.dto';
@@ -9,12 +9,12 @@ import { UsersService } from '../services/users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post('signup')
+  @Post('/signup')
   public async signup(@Body() signupDto: SignupDto): Promise<User> {
     return this.usersService.signup(signupDto);
   }
 
-  @Post('signin')
+  @Post('/signin')
   public async signin(@Body() signinDto: SigninDto): Promise<any> {
     return this.usersService.signin(signinDto);
   }
