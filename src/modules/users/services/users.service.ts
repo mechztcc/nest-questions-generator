@@ -19,11 +19,6 @@ export class UsersService {
   ) {}
 
   public async signup(signupDto: SignupDto): Promise<User> {
-    const emailExists = await this.findByEmail(signupDto.email);
-    if (emailExists) {
-      throw new BadRequestException('E-mail already in use');
-    }
-
     const user = new this.usersModel(signupDto);
     return user.save();
   }
